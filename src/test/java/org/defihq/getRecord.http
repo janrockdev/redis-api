@@ -1,0 +1,7 @@
+###
+GET http://localhost:8081/v1/api/getRecord
+Content-Type: application/json
+
+{
+  "key": "k1"
+}

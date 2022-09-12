@@ -1,0 +1,8 @@
+###
+POST http://localhost:8081/v1/api/postRecord
+Content-Type: application/json
+
+{
+  "key": "k1",
+  "value": "content1"
+}

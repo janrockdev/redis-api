@@ -3,12 +3,9 @@ package org.defihq.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.defihq.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -24,7 +21,21 @@ public class RedisController {
         this.redisService = redisService;
     }
 
-    @GetMapping("/postRecord")
+    @GetMapping("/getRecord")
+    public CompletableFuture<String> getRecord(@RequestBody JsonNode documentDetails) {
+        log.info("Path: getRecord");
+        return CompletableFuture.supplyAsync(() -> {
+            log.info(documentDetails.toString());
+            try {
+                return redisService.getRedisRecord(documentDetails.get("key").toString()).getJsonData();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+    }
+
+    @PostMapping("/postRecord")
     public CompletableFuture<String> postRecord(@RequestBody JsonNode documentDetails) {
         log.info("Path: postRecord");
         return CompletableFuture.supplyAsync(() -> {
