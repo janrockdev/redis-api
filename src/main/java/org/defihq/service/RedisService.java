@@ -8,4 +8,7 @@ public interface RedisService {
 
     RedisData getRedisRecord(String key) throws Exception;
     RedisData postRedisRecord(String key, String value) throws Exception;
+    RedisData deleteRedisRecord(String key) throws Exception;
+    //RedisData updateRedisRecord(String key, String value) throws Exception;
+    RedisData hasRedisRecord(String key) throws Exception;
 }

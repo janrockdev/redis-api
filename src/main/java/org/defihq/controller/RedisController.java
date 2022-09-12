@@ -49,4 +49,32 @@ public class RedisController {
 
     }
 
+    @PostMapping("/deleteRecord") //TODO: DeleteMapping
+    public CompletableFuture<String> deleteRecord(@RequestBody JsonNode documentDetails) {
+        log.info("Path: deleteRecord");
+        return CompletableFuture.supplyAsync(() -> {
+            log.info(documentDetails.toString());
+            try {
+                return redisService.deleteRedisRecord(documentDetails.get("key").toString()).getJsonData();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+    }
+
+    @GetMapping("/hasRecord")
+    public CompletableFuture<String> hasRecord(@RequestBody JsonNode documentDetails) {
+        log.info("Path: hasRecord");
+        return CompletableFuture.supplyAsync(() -> {
+            log.info(documentDetails.toString());
+            try {
+                return redisService.hasRedisRecord(documentDetails.get("key").toString()).getJsonData();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+    }
+
 }

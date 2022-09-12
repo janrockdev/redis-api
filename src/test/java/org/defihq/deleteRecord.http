@@ -1,0 +1,7 @@
+###
+POST http://localhost:8081/v1/api/deleteRecord
+Content-Type: application/json
+
+{
+  "key": "k1"
+}
